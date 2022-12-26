@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'external_id'
     ];
 
     /**
@@ -41,4 +41,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the pay_items for the user.
+     */
+    public function payItems()
+    {
+        return $this->hasMany(PayItem::class);
+    }
+
+    /**
+     * The businesses that belong to the user.
+     */
+    public function businesses()
+    {
+        return $this->belongsToMany(Business::class);
+    }
 }
